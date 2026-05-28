@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brinka Pet Shop</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--violet:#6C3FC4;--violet-dark:#4e2d91;--orange:#FF6B35;--orange-light:#FF8C5A;--gray-light:#f6f5f2;--gray-mid:#e5e3dd;--gray-text:#6b6b6b;--text:#1a1a1a;}
+body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--text);}
+
+.topbar{background:var(--violet-dark);padding:10px 32px;display:flex;align-items:stretch;justify-content:space-between;gap:24px;}
+.topbar-left{display:flex;align-items:stretch;}
+.suc{display:flex;align-items:center;gap:10px;padding-right:24px;color:#fff;}
+.suc+.suc{padding-left:24px;padding-right:0;border-left:1px solid rgba(255,255,255,0.2);}
+.suc-icon{opacity:0.7;flex-shrink:0;}
+.suc-text{display:flex;flex-direction:column;gap:1px;}
+.suc-name{font-size:11px;font-weight:700;color:rgba(255,255,255,0.65);text-transform:uppercase;letter-spacing:0.8px;}
+.suc-info{font-size:12px;font-weight:500;color:#fff;white-space:nowrap;}
+.topbar-right{display:flex;align-items:center;}
+.envio{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,0.85);font-size:12px;font-weight:500;text-decoration:none;}
+.envio:hover{color:#fff;}
+
+header{background:#fff;border-bottom:1px solid var(--gray-mid);padding:0 32px;position:sticky;top:0;z-index:1000;box-shadow:0 1px 8px rgba(0,0,0,0.05);}
+.header-inner{display:flex;align-items:center;gap:24px;height:68px;}
+.logo{font-size:26px;font-weight:800;color:var(--text);text-decoration:none;letter-spacing:-1px;}
+.logo span{color:var(--violet);}
+.logo em{font-style:normal;font-size:11px;font-weight:600;color:var(--orange);vertical-align:super;margin-left:1px;}
+.search-bar{flex:1;max-width:460px;position:relative;}
+.search-bar input{width:100%;padding:10px 44px 10px 18px;border:1.5px solid var(--gray-mid);border-radius:24px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:#fafaf8;transition:border-color 0.2s;}
+.search-bar input:focus{border-color:var(--violet);background:#fff;}
+.search-bar button{position:absolute;right:6px;top:50%;transform:translateY(-50%);background:var(--violet);border:none;border-radius:50%;width:32px;height:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.search-bar button svg{width:14px;height:14px;stroke:#fff;fill:none;stroke-width:2.5;}
+.header-actions{display:flex;align-items:center;gap:4px;margin-left:auto;}
+.header-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 12px;border:none;background:none;cursor:pointer;text-decoration:none;color:var(--text);border-radius:8px;transition:background 0.2s;}
+.header-btn:hover{background:var(--gray-light);}
+.header-btn svg{width:21px;height:21px;stroke:var(--violet);fill:none;stroke-width:2;}
+.header-btn span{font-size:11px;font-weight:600;color:var(--gray-text);}
+.wa-btn{background:var(--orange);color:#fff;padding:9px 20px;border-radius:24px;font-size:13px;font-weight:700;text-decoration:none;display:flex;align-items:center;gap:7px;white-space:nowrap;}
+.wa-btn:hover{background:var(--orange-light);}
+.wa-btn svg{width:17px;height:17px;fill:#fff;}
+
+nav{background:#fff;border-bottom:2px solid var(--violet);}
+.nav-list{display:flex;list-style:none;padding:0 32px;}
+.nav-item{position:relative;}
+.nav-link{display:flex;align-items:center;gap:4px;padding:14px 17px;font-size:14px;font-weight:600;color:var(--text);text-decoration:none;cursor:pointer;transition:color 0.2s;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-2px;}
+.nav-link:hover,.nav-item:hover>.nav-link{color:var(--violet);border-bottom-color:var(--violet);}
+.nav-link svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2.5;transition:transform 0.2s;}
+.nav-item:hover>.nav-link svg{transform:rotate(180deg);}
+.nav-link.orange{color:var(--orange);}
+.nav-link.orange:hover{border-bottom-color:var(--orange);}
+.mega-menu{display:none;position:absolute;top:100%;left:-20px;min-width:680px;background:#fff;border:1px solid var(--gray-mid);border-top:3px solid var(--violet);border-radius:0 0 16px 16px;box-shadow:0 16px 40px rgba(0,0,0,0.09);padding:26px;z-index:999;}
+.nav-item:hover>.mega-menu{display:flex;gap:26px;}
+.mega-col{min-width:150px;}
+.mega-col h4{font-size:10.5px;font-weight:700;color:var(--violet);text-transform:uppercase;letter-spacing:1.3px;margin-bottom:12px;padding-bottom:7px;border-bottom:1.5px solid var(--gray-mid);}
+.mega-col a{display:block;font-size:13px;font-weight:500;color:var(--gray-text);text-decoration:none;padding:4px 0;transition:color 0.15s;}
+.mega-col a:hover{color:var(--violet);}
+.mega-banner{width:176px;flex-shrink:0;border-radius:12px;padding:20px;display:flex;flex-direction:column;justify-content:space-between;min-height:176px;}
+.mega-banner.violet{background:linear-gradient(145deg,#7B4FD4,#5a34a8);}
+.mega-banner.green{background:linear-gradient(145deg,#3a8a20,#256010);}
+.mega-banner.blue{background:linear-gradient(145deg,#2878c8,#0d4a8a);}
+.mega-banner p{color:rgba(255,255,255,0.75);font-size:12px;margin-bottom:6px;}
+.mega-banner h3{color:#fff;font-size:17px;font-weight:700;line-height:1.25;margin-bottom:16px;}
+.mega-banner a{background:var(--orange);color:#fff;font-size:12px;font-weight:700;padding:8px 14px;border-radius:20px;text-decoration:none;display:inline-block;}
+
+/* HERO */
+.hero{position:relative;overflow:hidden;height:420px;}
+.slides{display:flex;transition:transform 0.6s cubic-bezier(0.4,0,0.2,1);height:100%;}
+.slide{min-width:100%;height:420px;position:relative;overflow:hidden;display:flex;align-items:center;}
+.slide-1{background:linear-gradient(130deg,#c94a10 0%,#e06020 100%);}
+.slide-2{background:linear-gradient(130deg,#143d08 0%,#4a9830 100%);}
+.slide-3{background:linear-gradient(130deg,#2d1860 0%,#7d5fcc 100%);}
+
+/* Sin gradiente divisorio — solo las imágenes sobre el fondo */
+.pets-wrap{position:absolute;right:0;top:0;width:58%;height:100%;overflow:hidden;}
+.pet{position:absolute;bottom:0;object-fit:contain;animation:petFloat 5s ease-in-out infinite;filter:drop-shadow(0 8px 28px rgba(0,0,0,0.2));}
+@keyframes petFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
+
+.slide-content{padding:0 56px;position:relative;z-index:3;max-width:500px;}
+.slide-tag{background:rgba(255,255,255,0.2);color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;display:inline-block;margin-bottom:14px;text-transform:uppercase;letter-spacing:1.2px;border:1px solid rgba(255,255,255,0.3);}
+.slide h1{font-size:42px;font-weight:800;color:#fff;line-height:1.08;margin-bottom:12px;letter-spacing:-1.5px;}
+.slide h1 em{font-style:normal;background:rgba(255,255,255,0.18);padding:2px 8px;border-radius:6px;}
+.slide p{color:rgba(255,255,255,0.88);font-size:15px;margin-bottom:26px;line-height:1.55;}
+.cta{display:inline-flex;align-items:center;gap:10px;padding:13px 28px;border-radius:28px;font-size:14px;font-weight:700;text-decoration:none;transition:transform 0.2s;}
+.cta:hover{transform:scale(1.04);}
+.cta svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;}
+.cta-violet{background:var(--violet);color:#fff;}
+.cta-white{background:#fff;color:#256010;}
+.cta-orange{background:var(--orange);color:#fff;}
+
+.hero-dots{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:10;}
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.4);cursor:pointer;transition:all 0.3s;border:none;}
+.dot.active{background:#fff;width:22px;border-radius:4px;}
+.hero-arrows{position:absolute;top:50%;transform:translateY(-50%);width:100%;display:flex;justify-content:space-between;padding:0 14px;z-index:10;pointer-events:none;}
+.arr{background:rgba(255,255,255,0.15);border:1.5px solid rgba(255,255,255,0.3);border-radius:50%;width:42px;height:42px;display:flex;align-items:center;justify-content:center;cursor:pointer;pointer-events:all;transition:background 0.2s;}
+.arr:hover{background:rgba(255,255,255,0.3);}
+.arr svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.5;}
+
+.quick-cats{background:var(--gray-light);padding:18px 32px;border-bottom:1px solid var(--gray-mid);}
+.qc-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.qcat{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 18px;background:#fff;border:1.5px solid var(--gray-mid);border-radius:12px;text-decoration:none;color:var(--text);font-size:12px;font-weight:600;transition:all 0.2s;min-width:84px;}
+.qcat:hover{border-color:var(--violet);color:var(--violet);transform:translateY(-2px);box-shadow:0 4px 12px rgba(108,63,196,0.12);}
+.qi{font-size:26px;line-height:1;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="suc">
+      <svg class="suc-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <div class="suc-text">
+        <span class="suc-name">Sucursal Banfield</span>
+        <span class="suc-info">Maipú 370 · Lun–Sáb 9–20 hs</span>
+      </div>
+    </div>
+    <div class="suc">
+      <svg class="suc-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <div class="suc-text">
+        <span class="suc-name">Sucursal Temperley</span>
+        <span class="suc-info">Salta 1835 · Lun–Sáb 10–13:30 y 16–20 hs</span>
+      </div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <a href="#" class="envio">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      Envíos a domicilio
+    </a>
+  </div>
+</div>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">brinka<span>.</span><em>pet</em></a>
+    <div class="search-bar">
+      <input type="text" placeholder="Buscá alimentos, accesorios, antipulgas...">
+      <button><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
+    </div>
+    <div class="header-actions">
+      <a href="#" class="header-btn"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Mi cuenta</span></a>
+      <a href="#" class="header-btn"><svg viewBox="0 0 24 24"><path d="M21 10H3M16 2l5 8-5 8M8 2L3 10l5 8"/></svg><span>Sucursales</span></a>
+      <a href="#" class="wa-btn"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.858L.073 23.27a.75.75 0 00.916.916l5.412-1.46A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75a9.73 9.73 0 01-4.964-1.355l-.356-.213-3.694.997.997-3.694-.213-.356A9.73 9.73 0 012.25 12C2.25 6.59 6.59 2.25 12 2.25S21.75 6.59 21.75 12 17.41 21.75 12 21.75z"/></svg>Hacer pedido</a>
+    </div>
+  </div>
+</header>
+
+<nav>
+  <ul class="nav-list">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Pet Shop <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <div class="mega-menu">
+        <div class="mega-col"><h4>Alimentos</h4><a href="#">Balanceados secos</a><a href="#">Balanceados húmedos</a><a href="#">Alimentos naturales</a><a href="#">Medicados</a><a href="#">Ver todas las marcas</a></div>
+        <div class="mega-col"><h4>Accesorios</h4><a href="#">Collares y correas</a><a href="#">Pretales</a><a href="#">Camas y mantas</a><a href="#">Comederos y bebederos</a><a href="#">Juguetes</a></div>
+        <div class="mega-col"><h4>Higiene</h4><a href="#">Shampoo y perfumes</a><a href="#">Cepillos</a><a href="#">Higiene dental</a><a href="#">Piedras para gatos</a></div>
+        <div class="mega-col"><h4>Salud</h4><a href="#">Antipulgas y garrapatas</a><a href="#">Snacks y galletitas</a><a href="#">Vitaminas</a><a href="#">Farmacia vet.</a></div>
+        <div class="mega-banner violet"><div><p>20+ marcas premium</p><h3>Catálogo completo</h3></div><a href="#">Ver catálogo →</a></div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Hogar &amp; Plantas <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <div class="mega-menu">
+        <div class="mega-col"><h4>Jardín</h4><a href="#">Tierra y sustrato</a><a href="#">Fertilizantes</a><a href="#">Macetas</a><a href="#">Herramientas</a></div>
+        <div class="mega-col"><h4>Plantas</h4><a href="#">Plantas de interior</a><a href="#">Plantas de exterior</a><a href="#">Cactus y suculentas</a></div>
+        <div class="mega-banner green"><div><p>Temporada</p><h3>Todo para tu jardín</h3></div><a href="#">Ver productos →</a></div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">Veterinaria <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></a>
+      <div class="mega-menu">
+        <div class="mega-col"><h4>Servicios</h4><a href="#">Consultas</a><a href="#">Vacunación</a><a href="#">Desparasitación</a><a href="#">Cirugías</a></div>
+        <div class="mega-col"><h4>Farmacia</h4><a href="#">Antipulgas</a><a href="#">Medicamentos</a><a href="#">Suplementos</a></div>
+        <div class="mega-banner blue"><div><p>Turno online</p><h3>Reservá tu consulta</h3></div><a href="#">Pedir turno →</a></div>
+      </div>
+    </li>
+    <li class="nav-item"><a class="nav-link" href="#">Nosotros</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Sucursales</a></li>
+    <li class="nav-item"><a class="nav-link orange" href="#">🔥 Ofertas</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="slides" id="slides">
+
+    <div class="slide slide-1">
+      <div class="pets-wrap">
+        <img class="pet" src="assets/imagen-1.png" style="height:84%;right:8%;animation-delay:0s;" alt="Bulldog">
+        <img class="pet" src="assets/imagen-2.png" style="height:50%;right:1%;animation-delay:0.8s;" alt="Gatito">
+      </div>
+      <div class="slide-content">
+        <span class="slide-tag">Pet Shop · Banfield &amp; Temperley</span>
+        <h1>Todo lo que tu <em>mascota</em> necesita</h1>
+        <p>Alimentos premium, accesorios y veterinaria. Dos sucursales en zona sur del GBA.</p>
+        <a href="#" class="cta cta-violet">Ver catálogo <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+
+    <div class="slide slide-2">
+      <div class="pets-wrap">
+        <img class="pet" src="assets/imagen-3.png" style="height:80%;right:6%;animation-delay:0s;" alt="Ciclamen">
+        <img class="pet" src="assets/imagen-4.png" style="height:60%;right:0%;animation-delay:0.6s;" alt="Buganvilla">
+        <img class="pet" src="assets/imagen-5.png" style="height:50%;right:36%;animation-delay:1.1s;" alt="Monstera">
+      </div>
+      <div class="slide-content">
+        <span class="slide-tag">Hogar &amp; Plantas</span>
+        <h1>Plantas que <em>transforman</em> tu espacio</h1>
+        <p>Flores, plantas de interior y exterior, macetas y todo para tu jardín. Pasá a vernos.</p>
+        <a href="#" class="cta cta-white">Ver plantas <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+
+    <div class="slide slide-3">
+      <div class="pets-wrap">
+        <img class="pet" src="assets/imagen-6.png" style="height:80%;right:8%;animation-delay:0s;" alt="Perro mestizo">
+        <img class="pet" src="assets/imagen-7.png" style="height:50%;right:1%;animation-delay:1.2s;" alt="Gato tricolor">
+      </div>
+      <div class="slide-content">
+        <span class="slide-tag">Veterinaria</span>
+        <h1>La salud de tu mascota en <em>buenas manos</em></h1>
+        <p>Consultas, vacunación, desparasitación y farmacia veterinaria. Turnos disponibles.</p>
+        <a href="#" class="cta cta-orange">Pedir turno <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </div>
+
+  </div>
+  <div class="hero-arrows">
+    <button class="arr" onclick="cs(-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <button class="arr" onclick="cs(1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+  </div>
+  <div class="hero-dots">
+    <button class="dot active" onclick="gs(0)"></button>
+    <button class="dot" onclick="gs(1)"></button>
+    <button class="dot" onclick="gs(2)"></button>
+  </div>
+</div>
+
+<div class="quick-cats">
+  <div class="qc-row">
+    <a href="#" class="qcat"><span class="qi">🐶</span>Perros</a>
+    <a href="#" class="qcat"><span class="qi">🐱</span>Gatos</a>
+    <a href="#" class="qcat"><span class="qi">🦮</span>Accesorios</a>
+    <a href="#" class="qcat"><span class="qi">🥩</span>Alimentos</a>
+    <a href="#" class="qcat"><span class="qi">🌿</span>Antipulgas</a>
+    <a href="#" class="qcat"><span class="qi">🌱</span>Plantas</a>
+    <a href="#" class="qcat"><span class="qi">🏥</span>Veterinaria</a>
+    <a href="#" class="qcat"><span class="qi">🔥</span>Ofertas</a>
+  </div>
+</div>
+
+<script>
+let cur=0,tot=3,tmr;
+function upd(){document.getElementById('slides').style.transform=`translateX(-${cur*100}%)`;document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===cur));}
+function cs(d){cur=(cur+d+tot)%tot;upd();rst();}
+function gs(n){cur=n;upd();rst();}
+function rst(){clearInterval(tmr);tmr=setInterval(()=>cs(1),5000);}
+rst();
+</script>
+</body>
+</html>
